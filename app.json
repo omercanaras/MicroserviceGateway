@@ -1,0 +1,12 @@
+{
+  "name": "microservice-gateway",
+
+  "buildpacks":
+  [
+    {
+      "url": "heroku/gradle"
+    }
+
+  ]
+}
+

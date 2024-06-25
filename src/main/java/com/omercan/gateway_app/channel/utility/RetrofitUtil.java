@@ -16,6 +16,9 @@ public final class RetrofitUtil
     {
         try
         {
+
+
+
             Response<E> response = request.execute();
 
             if (!response.isSuccessful())
@@ -23,7 +26,7 @@ public final class RetrofitUtil
                 assert response.errorBody() != null;
                 System.err.println("Unsuccessful response."
                         + "Response error: " + response.errorBody().string());
-
+                System.out.println("HTTP Status Code: " + response.code());
                 return null;
             }
 

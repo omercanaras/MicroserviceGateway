@@ -1,7 +1,9 @@
 package com.omercan.gateway_app.model.service;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.omercan.gateway_app.channel.utility.RetrofitUtil;
+import com.omercan.gateway_app.security.model.UserPrincipal;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 
@@ -17,6 +19,17 @@ public class TransactionService extends AbstractTransactionService
         Call<List<JsonElement>> requestGetTransactionsOfUser = transactionCallable.getTransactionsOfUser(userID);
 
         return RetrofitUtil.callGenericBlock(requestGetTransactionsOfUser);
+    }
+
+    @Override
+    public JsonElement createTransactionData(JsonElement savedProduct, UserPrincipal user) {
+
+        JsonObject transactionData = new JsonObject();
+
+        transactionData.addProperty("userId" ,user.getId());
+        transactionData.addProperty("productId" , savedProduct.getAsJsonObject().get("productId").getAsInt() );
+
+        return transactionData;
     }
 
     @Override

@@ -19,25 +19,25 @@ public class TransactionController
     private AbstractTransactionService transactionService;
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Integer transactionId)
+    public ResponseEntity<String> deleteById(@PathVariable Integer id)
     {
-        JsonElement transaction = transactionService.findById(transactionId);
+        JsonElement transaction = transactionService.findById(id);
 
         if(transaction != null)
         {
-            transactionService.deleteById(transactionId);
-            return new ResponseEntity<>("Transaction (transaction ID: " + transactionId + ") has been deleted.", HttpStatus.OK);
+            transactionService.deleteById(id);
+            return new ResponseEntity<>("Transaction (transaction ID: " + id + ") has been deleted.", HttpStatus.OK);
         }
         else
         {
-            return new ResponseEntity<>("Transaction (transaction ID: " + transactionId + ") is not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Transaction (transaction ID: " + id + ") is not found", HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<JsonElement> findById(@PathVariable Integer transactionId)
+    public ResponseEntity<JsonElement> findById(@PathVariable Integer id)
     {
-        JsonElement transaction = transactionService.findById(transactionId);
+        JsonElement transaction = transactionService.findById(id);
 
         return transaction != null ? new ResponseEntity<>(transaction, HttpStatus.FOUND)
                                     : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

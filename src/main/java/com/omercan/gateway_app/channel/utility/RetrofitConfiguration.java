@@ -5,6 +5,7 @@ import com.omercan.gateway_app.channel.repository.ProductCallable;
 import com.omercan.gateway_app.channel.repository.TransactionCallable;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ public class RetrofitConfiguration
 {
     @Value("${retrofit.timeout}")
     private Long TIMEOUT_IN_SECS;
+
 
     // 1- varsayilan bir OkHttpClient.Builder
     // 2- Builder uzerinden OkHttpClient
@@ -59,11 +61,13 @@ public class RetrofitConfiguration
     // ******a (varsayilan bir OkHttpClient.Builder)
     private OkHttpClient.Builder createDefaultClientBuilder()
     {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         //servisle kurulacak "handshake" zaman asimi
         return new OkHttpClient.Builder()
                 .connectTimeout(TIMEOUT_IN_SECS, TimeUnit.SECONDS)
                 .readTimeout(TIMEOUT_IN_SECS, TimeUnit.SECONDS)
-                .writeTimeout(TIMEOUT_IN_SECS, TimeUnit.SECONDS);
+                .writeTimeout(TIMEOUT_IN_SECS, TimeUnit.SECONDS).addInterceptor(logging);
 
     }
 }

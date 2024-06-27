@@ -294,49 +294,22 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }</code></pre>
-    <h5>Schritt 2: Erstellen und Verwenden des Retrofit-Clients</h5>
-    <pre><code>public class RetrofitClient {
-    private static Retrofit retrofit = null;
+    <h5>Schritt 2: Erstellen und Verwenden des Retrofit-Configuration</h5>
+        <h4>Was ist Retrofit?</h4>
+    <p>
+    Retrofit ist eine Typ-sichere HTTP-Client-Bibliothek für Android und Java, entwickelt von Square, Inc. Es erleichtert die Interaktion mit Web-APIs, indem es die HTTP-Anfragen in einfache Java-Methoden umwandelt und dabei eine klare und verständliche Schnittstelle bietet. Retrofit übernimmt die Serialisierung und Deserialisierung von Daten, was die Kommunikation mit APIs deutlich vereinfacht.
 
-    public static Retrofit getClient(String baseUrl) {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
-}</code></pre>
-    <h5>Schritt 3: Verwendung der API</h5>
-    <pre><code>public class MainActivity extends AppCompatActivity {
-    private ApiService apiService;
+    Hauptmerkmale von Retrofit:
+    Typ-Sicherheit: Retrofit verwendet Java-Interfaces, um HTTP-Anfragen zu definieren. Dies gewährleistet die Typ-Sicherheit und minimiert die Fehleranfälligkeit bei der Interaktion mit APIs.
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    Einfache Konfiguration: Die Konfiguration von Retrofit ist unkompliziert und flexibel. Sie können verschiedene HTTP-Methoden (GET, POST, PUT, DELETE) sowie Pfad- und Anfrageparameter einfach definieren.
 
-        Retrofit retrofit = RetrofitClient.getClient("http://localhost:9090");
-        apiService = retrofit.create(ApiService.class);
+    Unterstützung für verschiedene Datenformate: Retrofit unterstützt verschiedene Konverter (Converter), um Datenformate wie JSON, XML und Protobuf zu verarbeiten. Am häufigsten wird der Gson-Konverter für JSON-Daten verwendet.
 
-        // Beispiel-API-Aufruf
-        apiService.getServices().enqueue(new Callback&lt;List&lt;Service&gt;&gt;() {
-            @Override
-            public void onResponse(Call&lt;List&lt;Service&gt;&gt; call, Response&lt;List&lt;Service&gt;&gt; response) {
-                if (response.isSuccessful()) {
-                    List&lt;Service&gt; services = response.body();
-                    // Verarbeitung der empfangenen Daten
-                }
-            }
+    Asynchrone Anfragen: Retrofit unterstützt sowohl synchrone als auch asynchrone Anfragen. Asynchrone Anfragen ermöglichen es, Netzwerkanfragen im Hintergrund auszuführen, ohne die Benutzeroberfläche zu blockieren.
 
-            @Override
-            public void onFailure(Call&lt;List&lt;Service&gt;&gt; call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-}</code></pre>
+    Integration mit RxJava: Retrofit lässt sich nahtlos mit RxJava integrieren, um reaktive Programmierung und komplexe asynchrone Operationen zu unterstützen.
+    </p>
     <h3>6. Tests</h3>
     <p><strong>Teststrategie:</strong> Das Projekt enthält Unit-Tests und Integrationstests. Die Tests wurden mit JUnit und Mockito geschrieben.</p>
     <p><strong>Testschritte:</strong></p>

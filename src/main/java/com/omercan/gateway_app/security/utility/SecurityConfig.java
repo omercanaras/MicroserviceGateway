@@ -110,6 +110,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             httpSecurity.authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS).permitAll()
                     .antMatchers("/api/authentication/**").permitAll()
+                    .antMatchers("/").permitAll()
                     .anyRequest().authenticated();
             // bkz. AuthenticationController -> @RequestMapping("api/authentication")
 
